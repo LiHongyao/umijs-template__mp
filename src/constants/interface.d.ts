@@ -4,6 +4,14 @@
 export = XXX;
 export as namespace XXX;
 
+declare global {
+  interface Window {
+    _hmt: any;
+    wx: any;
+  }
+}
+
+
 declare namespace XXX {
   interface BaseResponse<T = any> {
     code: number;

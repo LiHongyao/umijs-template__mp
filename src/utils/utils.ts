@@ -4,12 +4,6 @@ import { history } from 'umi';
  * 类型声明
  *
  */
-// 全局声明
-declare global {
-  interface Window {
-    _hmt: any;
-  }
-}
 
 // 百度统计
 interface ITrackPv {

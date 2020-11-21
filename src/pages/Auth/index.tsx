@@ -1,3 +1,5 @@
+import Api from '@/Api';
+import Cookie from '@/utils/cookie';
 import Utils from '@/utils/utils';
 import React, { FC, useEffect } from 'react';
 import { history, useParams } from 'umi';
@@ -5,9 +7,15 @@ import { history, useParams } from 'umi';
 interface RouteParams {
   type: string;
 }
+interface IJumpQuery {
+  from?: string;
+}
 interface RouteQuery {
-  code?: string;
-  state?: string;
+  code: string;
+  state: string;
+}
+interface ILoginResponse {
+  token: string;
 }
 
 const Auth: FC = () => {
@@ -18,20 +26,30 @@ const Auth: FC = () => {
     let appid = 'wx169565989539bf7d';
     let path = '/auth/callback';
     let redirect_uri = encodeURIComponent(`${window.location.origin}${path}`);
-    let state = from;
-    let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${ state ? encodeURIComponent(state) : ''}#wechat_redirect`;
+    let state = from ? encodeURIComponent(from) : '';
+    let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
     window.location.replace(url);
   };
   const handleCallback = () => {
     // 解析code
     const { code, state } = Utils.query<RouteQuery>();
     // 执行登录逻辑
-    // 跳转
-    if(state) {
-      Utils.replace(state)
-    }else {
-      Utils.replace('/')
-    }
+    Api.wechat
+      .login<XXX.BaseResponse<ILoginResponse>>({
+        code,
+        shareCode: '1922N',
+      })
+      .then(res => {
+        if (res && res.code === 0 && res.data) {
+          Cookie.set('DP_CLIENT_TOKEN', res.data.token);
+          // 跳转
+          if (state) {
+            history.replace(state);
+          } else {
+            history.replace('/');
+          }
+        }
+      });
   };
   // effects
   useEffect(() => {
@@ -46,9 +64,7 @@ const Auth: FC = () => {
   }, []);
 
   // render
-  return (
-    <></>
-  );
+  return <></>;
 };
 
 export default Auth;

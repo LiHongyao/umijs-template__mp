@@ -59,7 +59,7 @@ export default defineConfig({
   /** 路由管理 */
   routes: [
     // 主页
-    { exact: true, path: '/index', component: '@/pages/IndexPage' },
+    { exact: true, path: '/', component: '@/pages/IndexPage' },
     // 授权
     { exact: true, path: '/auth/:type', component: '@/pages/Auth' },
     // 授权

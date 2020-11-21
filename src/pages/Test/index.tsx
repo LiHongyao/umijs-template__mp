@@ -3,11 +3,15 @@ import Api from '@/Api';
 
 const Test = () => {
   useEffect(() => {
-   
+    Api.wechat.test<XXX.BaseResponse<any>>().then(res => {
+      console.log(res);
+    })
   }, []);
   return (
-    <div>测试页面</div>
-  )
-}
+    <div>
+      测试页面
+    </div>
+  );
+};
 
 export default Test;

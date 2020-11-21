@@ -1,12 +1,8 @@
-import * as test from "./test";
+import * as wechat from "./wechat";
 
 export default {
-  test
+  wechat
 }
-
-// 请求示例
-// test.reqGet<XXX.BaseResponse<{响应数据类型}>>(params).then().catch();
-// test.reqPost<XXX.BaseResponse<{响应数据类型}>>(data).then().catch();
 
 
 
