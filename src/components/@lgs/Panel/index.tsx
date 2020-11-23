@@ -23,7 +23,7 @@ const Panel: FC<IProps> = props => {
   // render
   return (
     <div
-      className={`lg-panel ${visible ? 'visible' : 'outer'}`}
+      className={`lg-panel ${visible ? 'visible' : ''}`}
       onClick={onMaskTap}
     >
       <div
