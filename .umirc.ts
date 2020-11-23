@@ -61,10 +61,8 @@ export default defineConfig({
     // 主页
     { exact: true, path: '/', component: '@/pages/IndexPage' },
     // 授权
-    { exact: true, path: '/auth/:type', component: '@/pages/Auth' },
-    // 授权
-    { exact: true, path: '/test', component: '@/pages/Test' },
-    // 404
-    { path: '*', component: '@/pages/404' },
+    { exact: true, path: '/auth/:type', component: '@/pages/Auth' }
   ],
 });
+
+
