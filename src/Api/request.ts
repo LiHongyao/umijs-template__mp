@@ -58,7 +58,7 @@ service.interceptors.response.use(async response => {
     case 0:
       _taskQueue = [];
       return res;
-    case -23 /**token过期 */:
+    case -10: /**token过期 */
       // 取消所有正在进行的请求，避免返回数据干扰现有操作
       _taskQueue.forEach(({ controller }) => {
         controller.abort();

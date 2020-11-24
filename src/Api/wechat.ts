@@ -9,6 +9,13 @@ export function login<T>(data: { code: string; shareCode: string }) {
     data,
   });
 }
-export function test<T>() {
-  return request.post<T>('/point/wechat/mp/test');
+
+/**
+ * 获取JsApi-ticket
+ * @param url 
+ */
+export function getJsApiTicket<T>(url: string) {
+  return request.post<T>('/point/wechat/mp/jsapi/getJsApiTicket', {
+    data: { url }
+  })
 }

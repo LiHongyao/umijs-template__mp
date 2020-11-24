@@ -14,8 +14,8 @@ Toast.config({
 new vconsole();
 
 // 3. 刷新token
-if(Cookie.get('DP_CLIENT_TOKEN')) {
-  // ...
+if(Cookie.get('XXX_CLIENT_TOKEN')) {
+
 }
 
 

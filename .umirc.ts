@@ -58,11 +58,16 @@ export default defineConfig({
   ignoreMomentLocale: true,
   /** 路由管理 */
   routes: [
-    // 主页
-    { exact: true, path: '/', component: '@/pages/IndexPage' },
-    // 授权
-    { exact: true, path: '/auth/:type', component: '@/pages/Auth' }
+    { exact: true, path: 'not-wechat', component: '@/pages/NotWeChat' },
+    {
+      path: '/',
+      component: '@/layouts',
+      routes: [
+        { exact: true, path: '/', redirect: '/index' },
+        { exact: true, path: '/auth/:type', component: '@/pages/Auth' },
+        { exact: true, path: '/index', component: '@/pages/IndexPage' },
+        { exact: true, path: '*', component: '@/pages/404' },
+      ],
+    },
   ],
 });
-
-

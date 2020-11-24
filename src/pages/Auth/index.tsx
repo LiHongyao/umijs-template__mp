@@ -7,9 +7,6 @@ import { history, useParams } from 'umi';
 interface RouteParams {
   type: string;
 }
-interface IJumpQuery {
-  from?: string;
-}
 interface RouteQuery {
   code: string;
   state: string;
@@ -23,7 +20,7 @@ const Auth: FC = () => {
   // methods
   const handleJump = () => {
     let from = Utils.query<string>('from');
-    let appid = 'wx169565989539bf7d';
+    let appid = 'wx169565989539bf7d'; // 替换
     let path = '/auth/callback';
     let redirect_uri = encodeURIComponent(`${window.location.origin}${path}`);
     let state = from ? encodeURIComponent(from) : '';
@@ -37,11 +34,11 @@ const Auth: FC = () => {
     Api.wechat
       .login<XXX.BaseResponse<ILoginResponse>>({
         code,
-        shareCode: '1922N',
+        shareCode: '？？？',
       })
       .then(res => {
         if (res && res.code === 0 && res.data) {
-          Cookie.set('DP_CLIENT_TOKEN', res.data.token);
+          Cookie.set('XXX_CLIENT_TOKEN', res.data.token);
           // 跳转
           if (state) {
             history.replace(state);
