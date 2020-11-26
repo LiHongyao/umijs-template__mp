@@ -6,12 +6,20 @@ interface IProps {
   round?: boolean;
   children?: JSX.Element | JSX.Element[];
   customStyle?: CSSProperties;
+  customCls?: string;
   onClose?: () => void;
 }
 
 const Panel: FC<IProps> = props => {
   // props
-  const { visible, round = true, children, customStyle, onClose } = props;
+  const {
+    visible,
+    round = true,
+    children,
+    customStyle,
+    onClose,
+    customCls,
+  } = props;
   // events
   const onMaskTap = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.persist();
@@ -22,12 +30,10 @@ const Panel: FC<IProps> = props => {
   };
   // render
   return (
-    <div
-      className={`lg-panel ${visible ? 'visible' : ''}`}
-      onClick={onMaskTap}
-    >
+    <div className={`lg-panel ${visible ? 'visible' : ''}`} onClick={onMaskTap}>
       <div
-        className={`lg-panel__contents ${round ? 'round' : ''}`}
+        className={`lg-panel__contents ${round ? 'round' : ''} ${customCls ||
+          ''}`}
         style={customStyle}
       >
         {children}

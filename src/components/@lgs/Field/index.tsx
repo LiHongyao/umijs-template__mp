@@ -1,4 +1,4 @@
-import React, { memo, FormEvent, CSSProperties } from 'react';
+import React, { memo, FormEvent, CSSProperties, useRef } from 'react';
 import './index.less';
 
 interface IProps {
@@ -50,20 +50,26 @@ const Field: React.FC<IProps> = props => {
 
   const { onChange } = props;
 
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const _onChange = (event: FormEvent<HTMLInputElement>) => {
     event.persist();
     let value = event.currentTarget.value;
-    console.log(rule.test(value))
+    console.log(rule.test(value));
     rule.test(value) && onChange(value);
   };
   const _onClear = () => {
     onChange('');
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   return (
     <>
       <div className={`lg-field ${customCls}`} style={fieldStyle}>
         <input
+          ref={inputRef}
           className="lg-field__control"
           placeholder={placeHolder}
           type={type}
