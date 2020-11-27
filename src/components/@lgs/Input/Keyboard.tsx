@@ -40,15 +40,15 @@ const Keyboard: FC = () => {
       let tar = event.target as HTMLElement;
       let tag = false;
       let reg = /(am-toast)/; /**筛选条件 */
-      while(tar.parentElement) {
+      while (tar.parentElement) {
         let s = JSON.stringify([...tar.classList].join('/'));
-        if(reg.test(s)) {
-            tag = true;
-            break;
+        if (reg.test(s)) {
+          tag = true;
+          break;
         }
         tar = tar.parentElement;
       }
-      if(!tag) {
+      if (!tag) {
         setVisible(false);
         eventBus.$emit('LG_KEYBOARD_BLUR');
       }
@@ -73,11 +73,19 @@ const Keyboard: FC = () => {
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="4" />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="5" />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="6" />
-      <div className="lg-keyboard__item sure" onClick={onSureButtonTap} data-key={actionText} />
+      <div
+        className="lg-keyboard__item sure"
+        onClick={onSureButtonTap}
+        data-key={actionText}
+      />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="7" />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="8" />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="9" />
-      <div className="lg-keyboard__item zero" onClick={onItemTap} data-key="0" />
+      <div
+        className="lg-keyboard__item zero"
+        onClick={onItemTap}
+        data-key="0"
+      />
       <div className="lg-keyboard__item" onClick={onItemTap} data-key="·" />
     </div>
   );

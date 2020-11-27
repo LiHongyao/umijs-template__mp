@@ -12,26 +12,26 @@ interface IProps {
 
   placeholder?: string;
   autoFocus?: boolean;
-  digits?: number; /**小数点前的位数 */
-  max?: number; /**可输入的最大值 */
-  actionText?: string; /**确认按钮文字 */
-  align?: 'left' | 'center' | 'right'; /**对齐方式 */
-  clear?: boolean; /**是否显示清除按钮 */
+  digits?: number /**小数点前的位数 */;
+  max?: number /**可输入的最大值 */;
+  actionText?: string /**确认按钮文字 */;
+  align?: 'left' | 'center' | 'right' /**对齐方式 */;
+  clear?: boolean /**是否显示清除按钮 */;
 
-  onChange: (value: string) => void; /**数值变化 */
-  onAction?: () => void; /**点击确认按钮 */
-  onOverMax?: () => void; /**超过最大值 */
-  onOverDigits?: () => void; /**超过小数点前最大位数 */
+  onChange: (value: string) => void /**数值变化 */;
+  onAction?: () => void /**点击确认按钮 */;
+  onOverMax?: () => void /**超过最大值 */;
+  onOverDigits?: () => void /**超过小数点前最大位数 */;
 }
 
 let HAS_AUTO_FOCUS: boolean = false;
 const Input: FC<IProps> = props => {
-  const { 
-    max = Infinity, 
+  const {
+    max = Infinity,
     digits = Infinity,
     actionText = '确认',
     align = 'left',
-    clear = true
+    clear = true,
   } = props;
   const [letters, setLetters] = useState<string[]>([]);
   const [focus, setFocus] = useState(false);
@@ -51,18 +51,23 @@ const Input: FC<IProps> = props => {
     if (props.autoFocus && !HAS_AUTO_FOCUS) {
       HAS_AUTO_FOCUS = true;
       let t = setTimeout(() => {
-        eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', { visible: true, actionText});
-        setFocus(true)
+        eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', {
+          visible: true,
+          actionText,
+        });
+        setFocus(true);
         clearTimeout(t);
       }, 0);
     }
   };
 
   // events
-  const onWrapperTap = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const onWrapperTap = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
     eventBus.$emit('LG_KEYBOARD_BLUR');
     setFocus(true);
-    eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', { visible: true, actionText});
+    eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', { visible: true, actionText });
     event.nativeEvent.stopImmediatePropagation();
   };
   // effects
@@ -79,10 +84,10 @@ const Input: FC<IProps> = props => {
         if (_value.length === 0 && /·/.test(v)) {
           // 如果用户直接输入小数点，则在前面插入‘0’
           props.onChange('0.');
-        } else if(/^0$/.test(_value) && !/·/.test(v)) {
+        } else if (/^0$/.test(_value) && !/·/.test(v)) {
           // 如果第1位是0并且输入数字，则去除0返回数字
           props.onChange(v);
-        }else {
+        } else {
           // 否则判断目前value值是否存在小数点做特殊处理
           if (/\./.test(_value)) {
             // 有小数点
@@ -116,9 +121,9 @@ const Input: FC<IProps> = props => {
       if (letters.length > 0 && focus) {
         // 如果是0.x,当删除到x的时候直接删除所有
         let ch = letters[letters.length - 1];
-        if(/^0\./.test(letters.join('')) && letters.lastIndexOf(ch) === 2) {
+        if (/^0\./.test(letters.join('')) && letters.lastIndexOf(ch) === 2) {
           props.onChange('');
-        }else {
+        } else {
           props.onChange(letters.slice(0, -1).join(''));
         }
       }
@@ -129,7 +134,10 @@ const Input: FC<IProps> = props => {
       if (focus) {
         props.onAction && props.onAction();
         setFocus(false);
-        eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', { visible: false, actionText});
+        eventBus.$emit('LG_KEYBOARD_TOGGLE_VISIBLE', {
+          visible: false,
+          actionText,
+        });
       }
     };
     eventBus.$on('LG_KEYBOARD_ACTION', sure);
@@ -156,13 +164,15 @@ const Input: FC<IProps> = props => {
 
   // render
   return (
-    <div className="lg-input" onClick={onWrapperTap} >
+    <div className="lg-input" onClick={onWrapperTap}>
       {/* 表单内容 */}
       <div className={`lg-input__wrapper __${align}`}>
         {letters.length > 0 && (
-          <div 
-            className={`lg-input__value lg-input__cursor ${focus ? '__cursor' : ''} ${props.valueCls || ''}`}
-            style={{fontSize: props.fontSize}}
+          <div
+            className={`lg-input__value lg-input__cursor ${
+              focus ? '__cursor' : ''
+            } ${props.valueCls || ''}`}
+            style={{ fontSize: props.fontSize }}
           >
             {letters.map((ch, i) => (
               <span className="lg-input__span" key={`lg-input__ch_${i}`}>
@@ -172,12 +182,26 @@ const Input: FC<IProps> = props => {
           </div>
         )}
         {/* 占位符 */}
-        {letters.length == 0 && <div className={`lg-input__placeholder lg-input__cursor  ${focus ? '__cursor' : ''} __${align}`} style={{fontSize: props.fontSize}}>{props.placeholder}</div>}
+        {letters.length == 0 && (
+          <div
+            className={`lg-input__placeholder lg-input__cursor  ${
+              focus ? '__cursor' : ''
+            } __${align}`}
+            style={{ fontSize: props.fontSize }}
+          >
+            {props.placeholder}
+          </div>
+        )}
       </div>
       {/* 清除按钮 */}
-      {clear && letters.length > 0 && focus && <div className="lg-input__clear" onClick={()=>{
-        props.onChange('')
-      }}></div>}
+      {clear && letters.length > 0 && focus && (
+        <div
+          className="lg-input__clear"
+          onClick={() => {
+            props.onChange('');
+          }}
+        ></div>
+      )}
     </div>
   );
 };
