@@ -20,8 +20,9 @@
  */
 
 import Api from '@/Api';
-import Cookie from '@/utils/cookie';
-import Validator from '@/utils/validator';
+import Cookie from 'lg-cookie';
+import Validator from 'lg-validator';
+
 
 interface IResponse {
   appId: string;
@@ -54,7 +55,7 @@ export function initJSSDk(jsApiList: string[]) {
           jsApiList,
         });
         window.wx.ready(() => {
-          resolve();
+          resolve(true);
         });
         window.wx.error((err: any) => {
           reject(err);

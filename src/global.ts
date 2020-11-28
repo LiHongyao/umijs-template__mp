@@ -1,7 +1,7 @@
 import { Toast } from 'antd-mobile';
 import 'default-passive-events';
+import Cookie from 'lg-cookie';
 import vconsole from 'vconsole';
-import Cookie from './utils/cookie';
 
 
 // 1. 全局配置Toast
@@ -11,7 +11,10 @@ Toast.config({
 });
 
 // 2. vconsole
-new vconsole();
+if(process.env.NAME !== 'production') {
+  new vconsole();
+}
+
 
 // 3. 刷新token
 if(Cookie.get('XXX_CLIENT_TOKEN')) {

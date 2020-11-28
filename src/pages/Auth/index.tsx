@@ -1,6 +1,7 @@
 import Api from '@/Api';
-import Cookie from '@/utils/cookie';
 import Utils from '@/utils/utils';
+import Cookie from 'lg-cookie';
+import Tools from 'lg-tools';
 import React, { FC, useEffect } from 'react';
 import { history, useParams } from 'umi';
 
@@ -19,7 +20,7 @@ const Auth: FC = () => {
   const { type } = useParams<RouteParams>();
   // methods
   const handleJump = () => {
-    let from = Utils.query<string>('from');
+    let from = Tools.query<string>('from');
     let appid = 'wx169565989539bf7d'; // 替换
     let path = '/auth/callback';
     let redirect_uri = encodeURIComponent(`${window.location.origin}${path}`);
@@ -29,7 +30,7 @@ const Auth: FC = () => {
   };
   const handleCallback = () => {
     // 解析code
-    const { code, state } = Utils.query<RouteQuery>();
+    const { code, state } = Tools.query<RouteQuery>();
     // 执行登录逻辑
     Api.wechat
       .login<XXX.BaseResponse<ILoginResponse>>({

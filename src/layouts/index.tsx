@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react';
-import Validator from '@/utils/validator';
-import Cookie from '@/utils/cookie';
 import { Redirect } from 'umi';
 import { usePrevious } from '@umijs/hooks';
+import Cookie from 'lg-cookie';
+import Validator from 'lg-validator';
 
 
 const Layouts: FC = props => {
@@ -14,7 +14,7 @@ const Layouts: FC = props => {
 
   // 2. 处理非微信环境
   let element = null;
-  if (!Validator.weixin()) {
+  if (Validator.weixin()) {
     element = <Redirect to="/not-wechat" />;
   } else if(Cookie.get<string>('XXX_CLIENT_TOKEN')) {
     const from = location.href.replace(location.origin, '');
