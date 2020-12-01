@@ -1,4 +1,10 @@
-import React, { memo, FormEvent, CSSProperties, useRef, useEffect } from 'react';
+import React, {
+  memo,
+  FormEvent,
+  CSSProperties,
+  useRef,
+  useEffect,
+} from 'react';
 import './index.less';
 
 interface IProps {
@@ -7,7 +13,7 @@ interface IProps {
   type?: 'text' | 'password' | 'number' | 'tel';
   clear?: boolean;
   disabled?: boolean;
-  focus?: boolean; /**是否获取焦点（手动控制） */
+  focus?: boolean /**是否获取焦点（手动控制） */;
 
   underline?: boolean;
   underlineStyle?: CSSProperties;
@@ -37,7 +43,7 @@ const Field: React.FC<IProps> = props => {
     color = '#333333',
     placeHolderColor = '#A8A8A8',
     clear = true,
-    maxLength = Infinity
+    maxLength = Infinity,
   } = props;
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -46,10 +52,10 @@ const Field: React.FC<IProps> = props => {
   const _onChange = (event: FormEvent<HTMLInputElement>) => {
     event.persist();
     let value = event.currentTarget.value;
-    if(props.rule && !props.rule.test(value)) {
+    if (props.rule && !props.rule.test(value)) {
       return;
     }
-    props.onChange(value)
+    props.onChange(value);
   };
   const _onClear = () => {
     props.onChange('');
@@ -59,15 +65,18 @@ const Field: React.FC<IProps> = props => {
   };
   // 监听
   useEffect(() => {
-    if(props.focus && inputRef.current) {
+    if (props.focus && inputRef.current) {
       inputRef.current.focus();
-    } 
+    }
   }, [props.focus, inputRef]);
 
   // render
   return (
     <>
-      <div className={`lg-field ${props.customCls || ''}`} style={props.fieldStyle}>
+      <div
+        className={`lg-field ${props.customCls || ''}`}
+        style={props.fieldStyle}
+      >
         <input
           ref={inputRef}
           className="lg-field__control"

@@ -1,4 +1,5 @@
-import React, { CSSProperties, memo, useEffect, useState } from 'react';
+import classNames from 'lg-classnames';
+import React, { CSSProperties, memo, useState } from 'react';
 import './index.less';
 
 interface IProps {
@@ -14,36 +15,30 @@ interface IProps {
   loadingText?: string;
   disabled?: boolean;
 
-  onDisabled?: () => void; /**禁用状态时点击 */
-  onTap?: () => void; /**点击按钮 */
+  onDisabled?: () => void /**禁用状态时点击 */;
+  onTap?: () => void /**点击按钮 */;
 }
 const Button: React.FC<IProps> = props => {
   // props
-  const {
-    loadingText = '处理中...'
-  } = props;
-  // state
-  const [cls, setCls] = useState('');
+  const { loadingText = '处理中...' } = props;
   // events
   const _onTap = () => {
-    if(props.disabled) {
+    if (props.disabled) {
       props.onDisabled && props.onDisabled();
-    }else {
+    } else {
       !props.loading && props.onTap && props.onTap();
     }
   };
-  // effects
-  useEffect(() => {
-    let _cls = '';
-    props.round && (_cls += ` round`);
-    props.customCls && (_cls += ` ${props.customCls}`);
-    props.disabled && (_cls += ` disabled`);
-    setCls(_cls);
-  }, [props.round, props.customCls, props.disabled]);
-
   return (
     <div
-      className={`lg-button ${cls}`}
+      className={classNames([
+        'lg-button',
+        props.customCls,
+        {
+          round: props.round,
+          disabled: props.disabled,
+        },
+      ])}
       style={{ background: props.backgroundColor, ...props.style }}
       onClick={_onTap}
     >

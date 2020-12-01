@@ -34,6 +34,7 @@
     "default-passive-events": "^2.0.0",
     "lg-big": "^1.0.0",
     "lg-cookie": "^1.0.0",
+    "lg-react-hooks": "^1.0.2",
     "lg-tools": "^1.0.1",
     "lg-validator": "^1.0.0",
     "lint-staged": "^10.0.7",

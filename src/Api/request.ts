@@ -1,7 +1,9 @@
-import Cookie from '@/utils/cookie';
+
 import Utils from '@/utils/utils';
 import { extend, RequestOptionsInit } from 'umi-request';
 import { Toast } from 'antd-mobile';
+import Tools from 'lg-tools';
+import Cookie from 'lg-cookie';
 
 interface IQueue {
   url: string;
@@ -36,7 +38,7 @@ service.interceptors.request.use((url: string, options: RequestOptionsInit) => {
     options.params = {
       ...options.params,
       signal,
-      timeState: Utils.randomCharacters(1, 'uppercase') + Date.now(),
+      timeState: Tools.randomCharacters(1, 'uppercase') + Date.now(),
     };
   }
   return {

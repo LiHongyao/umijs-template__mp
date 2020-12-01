@@ -9,7 +9,7 @@ interface IOptions {
   showCancel?: boolean;
   sureButtonText?: string /**确认按钮文案 */;
   cancelButtonText?: string /**取消按钮文案 */;
-  icon?: any; /**是否显示icon图标 */
+  icon?: any /**是否显示icon图标 */;
   onSure?: () => void /**用户点击确认 */;
   onCancel?: () => void /**用户点击取消 */;
 }
@@ -47,13 +47,22 @@ const Alert: FC<IProps> = props => {
           {/* icon */}
           {props.config.icon && (
             <div className="lg-alert__icon">
-              <img src={props.config.icon === true ? require('./images/icon__tips.png') : props.config.icon} alt="提示图标" />
+              <img
+                src={
+                  props.config.icon === true
+                    ? require('./images/icon__tips.png')
+                    : props.config.icon
+                }
+                alt="提示图标"
+              />
             </div>
           )}
           {/* 标题 */}
           {props.config.title && !props.config.icon && (
             <div
-              className={`lg-alert__title ${props.config.icon ? '__hasIcon' : ''}`}
+              className={`lg-alert__title ${
+                props.config.icon ? '__hasIcon' : ''
+              }`}
             >
               {props.config.title}
             </div>
@@ -95,8 +104,8 @@ const Alert: FC<IProps> = props => {
 
 function info(options: IOptions | string) {
   // 判断数据类型
-  if(typeof options === 'string') {
-    options = { message: options, icon: true};
+  if (typeof options === 'string') {
+    options = { message: options };
   }
   // 构造容器
   let wrap = document.querySelector('.lg-alert');

@@ -14,7 +14,7 @@ const renderWrap = () => {
 };
 
 const info = (options: IConfigs | string) => {
-  if(typeof options === 'string') {
+  if (typeof options === 'string') {
     options = { message: options };
   }
   let wrap = renderWrap();
