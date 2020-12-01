@@ -76,7 +76,7 @@
   // 提示：memo 用于组件，如果是页面级组件，则无需使用memo包裹。
   export default memo(Test);
   ````
-# # 公共库，项目已安装
+# # 公共库
 
 - [lg-big：处理js浮点数计算精度问题](https://github.com/lihongyao/lg-big)
 - [lg-classnames：class类名处理](https://github.com/lihongyao/lg-classnames)
@@ -84,74 +84,7 @@
 - [lg-react-hooks：常用react-hooks合集](https://github.com/lihongyao/lg-react-hooks)
 - [lg-tools：工具函数](https://github.com/lihongyao/lg-tools)
 - [lg-validator：正则验证工具](https://github.com/lihongyao/lg-validator)
+- [lg-schemes：H5/原生跳转协议](https://github.com/LiHongyao/lg-schemes)
 
 > 提示：以上工具库部分没有写使用指南，对于一些方法的时候，可以cmd 后者 ctr + 鼠标点击查看声明文件
 
-# # 原生交互
-
-## 1. scheme 跳转协议
-
-scheme跳转协议为H5和原生之间的跳转协议，命名规范如下：
-
-```
-protocol://host
-```
-
-如，D豆定义的scheme协议为：`ddou://www.d-dou.com`，具体可参照此形式设计。
-
-目前根据实际开发的场景定义如下跳转形式（示例以D豆为例）：
-
-**a. 原生跳转H5页面：**
-
-```
- ddou://www.d-dou.com/push?url=encodeURIComponent(url=xxx?needHeader=?&appBack=?)
-```
-
-示例解读：
-
-- needHeader：是否需要原生实现导航栏，0为不需要，1为需要；
-- appBack：点击导航栏上的返回按钮是否需要调用原生返回，0为不需要，1位需要。
-
-**b. H5跳转原生页面：**
-
-```
-ddou://www.d-dou.com/jump/path?xxx=xxx
-```
-
-> 说明：`path` 为原生路由，`query` 参数为传递给原生的数据。在开发中，**原生开发者需拟定原生路由参照表供H5、后台及测试人员使用。**
-
-**c. 切换tab页：**
-
-```
-ddou://www.d-dou.com/switch?index=x
-```
-
-> 说明：`index` 为原生tab栏上对应的下标，比如首页，`index`  值为 `0`。
-
-**d. 原生打开外部浏览器：**
-
-```
-ddou://www.d-dou.com/browser?url=xxx
-```
-
-> 说明：`url` 为外部H5链接地址。
-
-> 提示：关于scheme跳转协议，H5框架已封装，详情参考目录结构：“@/utils/jumpSchemes.ts”。
-
-## 2. jsBridge
-
-开发中，我们经常会通过方法和原生进行通信，比如分享、调用支付等等，这里例出js调用Android和iOS的示例代码：
-
-```js
-// js调用iOS
-window.webkit.messageHandlers[fnName].postMessage(params ? JSON.stringify(params) : null);
-// js调用Android
-window.js_android[fnName](params ? JSON.stringify(params) : null);
-```
-
-> 说明：
->
-> - `js_android` 为安卓开发者定义，为保持统一，安卓开发者将所有js调用方法定义在js_android对象上
-> - `params` 为调用原生方法时传递的参数，对象类型（便于扩展和兼容），当无参数时传递 `null`。如果有参数，需转换为 JSON 字符串传递。
-
-> 提示：和原生通信的方法，H5框架已封装，详情参考目录结构：“@/utils/jsBridge.ts”。

@@ -4,19 +4,21 @@ import { usePrevious } from '@umijs/hooks';
 import Cookie from 'lg-cookie';
 import Validator from 'lg-validator';
 
-
 const Layouts: FC = props => {
   // 1. 记录上一次路由
   const previousURL = usePrevious(window.location.href);
   useEffect(() => {
-    Cookie.set('PREVIOUS_URL', previousURL ? previousURL : window.location.href);
+    Cookie.set(
+      'PREVIOUS_URL',
+      previousURL ? previousURL : window.location.href,
+    );
   }, [window.location.href]);
 
   // 2. 处理非微信环境
   let element = null;
-  if (Validator.weixin()) {
+  if (!Validator.weixin()) {
     element = <Redirect to="/not-wechat" />;
-  } else if(Cookie.get<string>('XXX_CLIENT_TOKEN')) {
+  } else if (!Cookie.get<string>('XXX_CLIENT_TOKEN')) {
     const from = location.href.replace(location.origin, '');
     element = <Redirect to={`/auth/jump?from=${encodeURIComponent(from)}`} />;
   } else {
