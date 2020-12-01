@@ -21,11 +21,10 @@ const Auth: FC = () => {
   // methods
   const handleJump = () => {
     let from = Tools.query<string>('from');
-    let appid = 'wx169565989539bf7d'; // 替换
     let path = '/auth/callback';
     let redirect_uri = encodeURIComponent(`${window.location.origin}${path}`);
     let state = from ? encodeURIComponent(from) : '';
-    let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
+    let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
     window.location.replace(url);
   };
   const handleCallback = () => {

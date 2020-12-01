@@ -9,6 +9,7 @@ let HOST = {
 
 export default defineConfig({
   define: {
+    "process.env.APPID": "wx169565989539bf7d",
     "process.env.NAME": 'development',
     "process.env.HOST": HOST.后端A,
   },
