@@ -1,4 +1,3 @@
-import Utils from '@/utils/utils';
 import React, { FC } from 'react';
 
 const IndexPage: FC = () => {

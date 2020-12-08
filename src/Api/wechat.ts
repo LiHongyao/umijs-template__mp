@@ -2,20 +2,20 @@ import request from './request';
 
 /**
  * 微信登录
- * @param data 
+ * @param data
  */
 export function login<T>(data: { code: string; shareCode: string }) {
-  return request.post<T>('/point/wechat/mp/login', {
+  return request.post<T>('登录aPI地址', {
     data,
   });
 }
 
 /**
  * 获取JsApi-ticket
- * @param url 
+ * @param url
  */
 export function getJsApiTicket<T>(url: string) {
-  return request.post<T>('/point/wechat/mp/jsapi/getJsApiTicket', {
-    data: { url }
-  })
+  return request.post<T>('获取sApi-ticket接口地址', {
+    data: { url },
+  });
 }
