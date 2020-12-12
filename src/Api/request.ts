@@ -1,8 +1,8 @@
 import Utils from '@/utils/utils';
 import { extend, RequestOptionsInit } from 'umi-request';
-import { Toast } from 'antd-mobile';
 import Tools from 'lg-tools';
 import Cookie from 'lg-cookie';
+import Toast from '@/components/@lgs/Toast';
 
 const service = extend({
   prefix: process.env.HOST,
