@@ -58,7 +58,7 @@ export default defineConfig({
   ignoreMomentLocale: true,
   /** 路由管理 */
   routes: [
-    { exact: true, path: 'not-wechat', component: '@/pages/NotWeChat' },
+    { exact: true, path: '/not-wechat', component: '@/pages/NotWeChat' },
     {
       path: '/',
       component: '@/layouts',
