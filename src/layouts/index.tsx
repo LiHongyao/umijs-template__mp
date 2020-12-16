@@ -20,7 +20,7 @@ const Layouts: FC = props => {
     element = <Redirect to="/not-wechat" />;
   } else if (
     !Cookie.get<string>('XXX_CLIENT_TOKEN') &&
-    !/from/.test(location.href)
+    !/auth/.test(location.href)
   ) {
     const from = location.href.replace(location.origin, '');
     element = <Redirect to={`/auth/jump?from=${encodeURIComponent(from)}`} />;
