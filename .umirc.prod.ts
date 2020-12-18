@@ -5,8 +5,9 @@ export default defineConfig({
   // publicPath: '/umi-ddou-h5/',
   // 2. 定义环境变量
   define: {
-    "process.env.APPID": "wx169565989539bf7d",
-    "process.env.NAME": 'production',
-    "process.env.HOST": '此处为生产环境服务器地址'
+    'process.env.BASE': '',
+    'process.env.APPID': 'wx169565989539bf7d',
+    'process.env.NAME': 'production',
+    'process.env.HOST': '此处为生产环境服务器地址',
   },
 });

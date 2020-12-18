@@ -22,7 +22,9 @@ const Auth: FC = () => {
   const handleJump = () => {
     let from = Tools.query<string>('from');
     let path = '/auth/callback';
-    let redirect_uri = encodeURIComponent(`${window.location.origin}${path}`);
+    let redirect_uri = encodeURIComponent(
+      `${window.location.origin}${process.env.BASE}${path}`,
+    );
     let state = from ? encodeURIComponent(from) : '';
     let url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.APPID}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_userinfo&state=${state}#wechat_redirect`;
     window.location.replace(url);
