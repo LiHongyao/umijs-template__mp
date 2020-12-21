@@ -44,10 +44,13 @@ service.interceptors.response.use(async response => {
   switch (res.code) {
     case 0:
       return res;
-    case -10 /**token过期 */:
+    case -10:
       // 授权
       if (!/from/.test(location.href)) {
-        const from = location.href.replace(location.origin, '');
+        const from = location.href.replace(
+          location.origin + process.env.BASE,
+          '',
+        );
         Utils.replace(`/auth/jump?from=${encodeURIComponent(from)}`);
       }
       return res;
