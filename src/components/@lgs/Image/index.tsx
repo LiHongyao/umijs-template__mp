@@ -7,6 +7,7 @@ interface IProps {
   defaultImage?: any;
   customCls?: string;
   style?: CSSProperties;
+  onTap?: () => void;
 }
 const _Image: React.FC<IProps> = props => {
   const { src, customCls, style, defaultImage, alt } = props;
@@ -28,6 +29,9 @@ const _Image: React.FC<IProps> = props => {
       style={style}
       src={innerSrc}
       alt={alt}
+      onClick={() => {
+        if (props.onTap) props.onTap();
+      }}
     />
   );
 };
